@@ -1,0 +1,48 @@
+http://packages.ubuntu.com/raring/mrbayes-mpi
+
+
+http://www.levlafayette.com/node/129
+
+Installing MrBayes for MPI and 64-bit
+Submitted by lev_lafayette on Mon, 05/31/2010 - 03:23
+PDF version
+Let the home page describe what it is about (in the worst possible English): "MrBayes is a program for the Bayesian estimation of phylogeny. Bayesian inference of phylogeny is based upon a quantity called the posterior probability distribution of trees, which is the probability of a tree conditioned on the observations. The conditioning is accomplished using Bayes's theorem. The posterior probability distribution of trees is impossible to calculate analytically; instead, MrBayes uses a simulation technique called Markov chain Monte Carlo (or MCMC) to approximate the posterior probabilities of trees."
+
+Sourcefiles for MrBayes can be downloaded with a familiar process of extracting (tar xvf mrbayes-3.1.2.tar.gz) into an appropriate location (e.g., /usr/local/src/MRBAYES/mrbayes/3.1.2. Installing MrBayes should be just the matter of typing make but for MPI there is a number of modifications required top the Makefile and the sourcecode.
+
+Firstly, edit the Makefile, set MPI=yes
+
+Secondly, patch the sourcecode (patch -p 1 filename.patch) in the order listed. Download the patch files in an appropriate directory.
+
+Fix problem with SumP hanging in MPI on error: mrbayes-3.1.2-fix-sump-mpi.diff
+Change mcmcdiagn default to NO: mrbayes-3.1.2-fix-mcmcdiagn-disable.diff
+For 64-bit architecture, apply mb_64bit_safe.patch and compile with parameter _64BIT=yes. When applying this patch, use -R (the patch is in reverse format).
+So, step by step:
+
+Copy the patches into an appropriate directory
+
+
+mkdir /usr/local/src/MRBAYES/patches
+cd /usr/local/src/MRBAYES/patches
+wget http://technical.bestgrid.org/images/b/b8/Mrbayes-3.1.2-fix-sump-mpi.dif...
+wget http://technical.bestgrid.org/images/7/73/Mb_64bit-safe.patch.txt
+
+Add the patches
+
+
+cd /usr/local/src/MRBAYES/mrbayes-3.1.2
+patch -p 1 < ../patches/Mrbayes-3.1.2-fix-sump-mpi.diff.txt
+patch -R -p 1 < ../patches/Mb_64bit-safe.patch.txt
+
+Find the right acml library and add it the path
+
+
+export LD_LIBRARY_PATH=/usr/local/acml/4.3.0/pgi64_int64/lib/:$LD_LIBRARY_PATH
+
+Run the make
+
+
+module load openmpi-gcc
+OBJECT_MODE=64 make _64BIT=yes
+
+Thanks to Vladimir Mencl (University of Canterbury) and Sam Morrison (Victorian Partnership for Advanced Computing) in the development of this document.

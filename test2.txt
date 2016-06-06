@@ -1,0 +1,190 @@
+/**
+     * Main procedure to create workflow EXECUTION LIST
+     * Not. This is a FIFO file.
+     */
+    public boolean createWorkflows() {
+            ////////////////////////////////////////////////////////////////////
+            /// Variables
+            boolean foundFor=false;
+            boolean noSave=false;           
+            workflow_properties save=new workflow_properties();
+           //--Create a new list
+           run_workflow=new RunWorkflow();
+         
+           //--Remove any programs output before we start...
+           //--Note: should not be done for program already done...
+           //--A test is made in this function to be certains...
+           armadillo.workflow.resetProgramOutput();
+
+           //--Any undefined object
+		   Vector<workflow_object> undefined=armadillo.workflow.findAllUndefinedObjects();
+         if (config.isDevelopperMode()) publish_text("Finding undefined object...");
+          int count_loaded=0;
+          if (undefined.size()>0) {
+              String undefineds="";
+              int count=1;
+              for (workflow_object obj:undefined) {                  
+                  int id=loadObject(obj, count);
+                  //--Have children? Dependance?
+                  //--If true, we add to the list and the dependance
+                  Vector<workflow_object>children=armadillo.workflow.findOutput(obj);                  
+                  if (children.size()>0) {
+                    undefineds+="["+count+"] "+obj.getProperties().get("outputType")+" required for:\n";
+                    for (workflow_object objch:children) {
+                        undefineds+="\t->"+objch.getProperties().getName()+"\n";
+                        
+                    }
+                  }
+                  if (id>0) {
+                      //--Set the id to the good object
+                      obj.getProperties().put("output_"+obj.getProperties().get("outputType").toLowerCase()+"_id",id);
+                      undefineds+="\t[Ok - loaded from "+this.returnArg(Config.cmdArgs, count)+"\n";
+                      count_loaded++;
+                  }
+                  count++;
+              }
+              //--Did we load all objects from files?
+              if (count_loaded!=undefined.size()) {
+                  //--No...
+                  if (armadillo.isInitialized()) {
+                      JOptionPane.showMessageDialog(this.frame,"There are some undefined object in workflow!\n\n"+undefineds+"\n Please select a dataset before running the workflow.\n\n(Right-click on the undefined object in the workflow\nand choose: \"Select Dataset\" from the menu.)","Warning!",JOptionPane.ERROR_MESSAGE);
+                      publish_text("Error : There are some undefined object in workflow!\n\n"+undefineds+"\n Please select a dataset before running the workflow.\n\n(Right-click on the undefined object in the workflow\n and choose: \"Select Dataset\" from the menu while you are in graphic mode\nor execute Armadillo with some files as input)");
+                      return false;
+                  } else {
+                      publish_text("Error : There are some undefined object in workflow!\n\n"+undefineds+"\n Please select a dataset before running the workflow.\n\n(Right-click on the undefined object in the workflow\n and choose: \"Select Dataset\" from the menu while you are in graphic mode\nor execute Armadillo with some files as input)");
+                      return false;
+                  }
+              }
+          }
+
+          if (config.isDevelopperMode()) publish_text("Finding no save object...");
+          //--Find no save object
+          for (workflow_object obj:armadillo.workflow.work) {
+            if (isNoSave(obj)) {
+                noSave=true;
+            }
+          }
+
+          if (config.isDevelopperMode()) publish_text("Finding For each and Repeat...");
+           //--Find For-Loop-Repeat
+           for (workflow_object obj:armadillo.workflow.work) {
+                if (armadillo.workflow.isFor(obj)) {
+                    foundFor=true;
+                    //--Ok For object...
+                    //--Generate a list of the For properties...
+                    Vector<workflow_properties>list=generateForProperties(obj.getProperties());
+                    //--Clear the current For list and add the new List
+                    this.run_workflow.getFor_list().clear();
+                    for (workflow_properties prop:list) {
+                        this.run_workflow.getFor_list().add(prop);
+                    }
+                }
+           }
+
+           //--Save before the run...
+            // CASE 1. For Found.. create first iteration
+           if (foundFor) {
+                save.put("Name", workflows.getName()+" - Save before execution");
+                save.put("SaveAndResetOriginal",true);
+                run_workflow.getList().add(save);
+           } else {
+            //CASE 2. Normal save
+                save.put("Name", workflows.getName()+" - Save before execution");
+                save.put("SaveOriginal",true);
+                run_workflow.getList().add(save);
+           }
+
+           //Config.log("Total workflows to run"+run_workflow.getFor_list().size());
+           int total=(run_workflow.getFor_list().size()>0?run_workflow.getFor_list().size():1);
+
+           //--Loop to create workflow (we repeat the same workflow but update it at different time point
+           //--This is necessary to keep the visual (object in the workflow) in sync with
+           //--TO DO: Better run model here... compilation like.
+           //--The current properties
+           for (int i=0;i<total;i++) {
+               for (workflow_object obj:armadillo.workflow.outputExecution()) {
+                   if (obj!=null) {
+                       workflow_properties properties=obj.getProperties();
+                       run_workflow.getList().add(properties);
+                   }
+               }
+               //--Add save point after each run...
+               //--This is the final save
+               if (i==(total-1)) {
+                    save=new workflow_properties();
+                    save.put("Name", "Execution "+(i+1)+" of "+total);
+                    save.put("Save",true);
+                    run_workflow.getList().add(save);
+               } else {
+               //--This is an internal save.
+                    if (noSave) {
+                        save=new workflow_properties();
+                        save.put("Name", "Execution "+(i+1)+" of "+total);
+                        save.put("Reset",true);
+                        run_workflow.getList().add(save);
+                    } else {
+                        save=new workflow_properties();
+                        save.put("Name", "Execution "+(i+1)+" of "+total);
+                        save.put("SaveAndReset",true);
+                        run_workflow.getList().add(save);
+                    }
+               }
+           }
+           return true;
+    }
+	
+	    /**
+     * This will return a list of properties generated for the specified workflow_properties
+     * identified as a For each loop
+     * Note: will also
+     * @param properties
+     * @return
+     */
+     public Vector<workflow_properties> generateForProperties(workflow_properties properties) {
+         Pattern key_value=Pattern.compile("For_(.*)", Pattern.CASE_INSENSITIVE);
+         Vector<workflow_properties>tmp=new Vector<workflow_properties>();
+         workflow_properties w=new workflow_properties();
+         String ObjectID=properties.getID();
+         //--Handle program for loop
+         if (properties.isSet("ForObjectID")) {
+             ObjectID=properties.get("ForObjectID");
+             if (!ObjectID.equals(properties.getID())) ObjectID=properties.getID();
+         }
+
+         //--Duplicate list and add new properties
+         //--TO DO: more compiler like behavior
+         if (run_workflow.getFor_list().size()==0) {
+              for (Object k:properties.keySet()) {
+                 Matcher m=key_value.matcher((String)k);
+                 if (m.find()) {
+                    String key=properties.get(k);
+                    String value=m.group(1);
+                    w=new workflow_properties();
+                    //--Put 1. ObjectID for this For-Loop
+                    //--Put 2. Variable->value
+                    w.put(ObjectID, key+"&"+value);
+                    //w.put(key, value);
+                    tmp.add(w);
+                 }
+             }
+         } else {
+             for (workflow_properties oldprop:run_workflow.getFor_list()) {
+                for (Object k:properties.keySet()) {
+                 Matcher m=key_value.matcher((String)k);
+                 if (m.find()) {
+                    String key=properties.get(k);
+                    String value=m.group(1);
+                    w=new workflow_properties();
+                    //Duplicate prop
+                    w.deserializeFromString(oldprop.serializeToString());
+                    //--Put 1. ObjectID for this For-Loop
+                    //--Put 2. Variable->value
+                    w.put(ObjectID, key+"&"+value);
+                    //w.put(key, value);
+                    tmp.add(w);
+                  }
+                }
+             }
+         }
+         return tmp;
+     }

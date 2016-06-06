@@ -1,0 +1,209 @@
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/repos/armadillo2/!svn/ver/1417/armadillo/executable/Linux/web/MAFFT/libexec/mafft
+END
+seq2regtable
+K 25
+svn:wc:ra_dav:version-url
+V 95
+/repos/armadillo2/!svn/ver/1417/armadillo/executable/Linux/web/MAFFT/libexec/mafft/seq2regtable
+END
+dvtditr
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/repos/armadillo2/!svn/ver/1417/armadillo/executable/Linux/web/MAFFT/libexec/mafft/dvtditr
+END
+contrafoldwrap
+K 25
+svn:wc:ra_dav:version-url
+V 97
+/repos/armadillo2/!svn/ver/1417/armadillo/executable/Linux/web/MAFFT/libexec/mafft/contrafoldwrap
+END
+mafft-distance
+K 25
+svn:wc:ra_dav:version-url
+V 97
+/repos/armadillo2/!svn/ver/1417/armadillo/executable/Linux/web/MAFFT/libexec/mafft/mafft-distance
+END
+f2cl
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/repos/armadillo2/!svn/ver/1417/armadillo/executable/Linux/web/MAFFT/libexec/mafft/f2cl
+END
+countlen
+K 25
+svn:wc:ra_dav:version-url
+V 91
+/repos/armadillo2/!svn/ver/1417/armadillo/executable/Linux/web/MAFFT/libexec/mafft/countlen
+END
+addsingle
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/repos/armadillo2/!svn/ver/1417/armadillo/executable/Linux/web/MAFFT/libexec/mafft/addsingle
+END
+setdirection
+K 25
+svn:wc:ra_dav:version-url
+V 95
+/repos/armadillo2/!svn/ver/1417/armadillo/executable/Linux/web/MAFFT/libexec/mafft/setdirection
+END
+mccaskillwrap
+K 25
+svn:wc:ra_dav:version-url
+V 96
+/repos/armadillo2/!svn/ver/1417/armadillo/executable/Linux/web/MAFFT/libexec/mafft/mccaskillwrap
+END
+mafft.1
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/repos/armadillo2/!svn/ver/1417/armadillo/executable/Linux/web/MAFFT/libexec/mafft/mafft.1
+END
+dndpre2
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/repos/armadillo2/!svn/ver/1417/armadillo/executable/Linux/web/MAFFT/libexec/mafft/dndpre2
+END
+replaceu
+K 25
+svn:wc:ra_dav:version-url
+V 91
+/repos/armadillo2/!svn/ver/1417/armadillo/executable/Linux/web/MAFFT/libexec/mafft/replaceu
+END
+restoreu
+K 25
+svn:wc:ra_dav:version-url
+V 91
+/repos/armadillo2/!svn/ver/1417/armadillo/executable/Linux/web/MAFFT/libexec/mafft/restoreu
+END
+makedirectionlist
+K 25
+svn:wc:ra_dav:version-url
+V 100
+/repos/armadillo2/!svn/ver/1417/armadillo/executable/Linux/web/MAFFT/libexec/mafft/makedirectionlist
+END
+multi2hat3s
+K 25
+svn:wc:ra_dav:version-url
+V 94
+/repos/armadillo2/!svn/ver/1417/armadillo/executable/Linux/web/MAFFT/libexec/mafft/multi2hat3s
+END
+rnatest
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/repos/armadillo2/!svn/ver/1417/armadillo/executable/Linux/web/MAFFT/libexec/mafft/rnatest
+END
+regtable2seq
+K 25
+svn:wc:ra_dav:version-url
+V 95
+/repos/armadillo2/!svn/ver/1417/armadillo/executable/Linux/web/MAFFT/libexec/mafft/regtable2seq
+END
+pair2hat3s
+K 25
+svn:wc:ra_dav:version-url
+V 93
+/repos/armadillo2/!svn/ver/1417/armadillo/executable/Linux/web/MAFFT/libexec/mafft/pair2hat3s
+END
+pairlocalalign
+K 25
+svn:wc:ra_dav:version-url
+V 97
+/repos/armadillo2/!svn/ver/1417/armadillo/executable/Linux/web/MAFFT/libexec/mafft/pairlocalalign
+END
+mafft-homologs.1
+K 25
+svn:wc:ra_dav:version-url
+V 99
+/repos/armadillo2/!svn/ver/1417/armadillo/executable/Linux/web/MAFFT/libexec/mafft/mafft-homologs.1
+END
+tbfast
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/repos/armadillo2/!svn/ver/1417/armadillo/executable/Linux/web/MAFFT/libexec/mafft/tbfast
+END
+version
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/repos/armadillo2/!svn/ver/1417/armadillo/executable/Linux/web/MAFFT/libexec/mafft/version
+END
+pairash
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/repos/armadillo2/!svn/ver/1417/armadillo/executable/Linux/web/MAFFT/libexec/mafft/pairash
+END
+dndblast
+K 25
+svn:wc:ra_dav:version-url
+V 91
+/repos/armadillo2/!svn/ver/1417/armadillo/executable/Linux/web/MAFFT/libexec/mafft/dndblast
+END
+mafft-profile
+K 25
+svn:wc:ra_dav:version-url
+V 96
+/repos/armadillo2/!svn/ver/1417/armadillo/executable/Linux/web/MAFFT/libexec/mafft/mafft-profile
+END
+splittbfast
+K 25
+svn:wc:ra_dav:version-url
+V 94
+/repos/armadillo2/!svn/ver/1417/armadillo/executable/Linux/web/MAFFT/libexec/mafft/splittbfast
+END
+sextet5
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/repos/armadillo2/!svn/ver/1417/armadillo/executable/Linux/web/MAFFT/libexec/mafft/sextet5
+END
+getlag
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/repos/armadillo2/!svn/ver/1417/armadillo/executable/Linux/web/MAFFT/libexec/mafft/getlag
+END
+setcore
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/repos/armadillo2/!svn/ver/1417/armadillo/executable/Linux/web/MAFFT/libexec/mafft/setcore
+END
+disttbfast
+K 25
+svn:wc:ra_dav:version-url
+V 93
+/repos/armadillo2/!svn/ver/1417/armadillo/executable/Linux/web/MAFFT/libexec/mafft/disttbfast
+END
+dndfast7
+K 25
+svn:wc:ra_dav:version-url
+V 91
+/repos/armadillo2/!svn/ver/1417/armadillo/executable/Linux/web/MAFFT/libexec/mafft/dndfast7
+END
+score
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/repos/armadillo2/!svn/ver/1417/armadillo/executable/Linux/web/MAFFT/libexec/mafft/score
+END
+mxscarnamod
+K 25
+svn:wc:ra_dav:version-url
+V 94
+/repos/armadillo2/!svn/ver/1417/armadillo/executable/Linux/web/MAFFT/libexec/mafft/mxscarnamod
+END
+dndpre
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/repos/armadillo2/!svn/ver/1417/armadillo/executable/Linux/web/MAFFT/libexec/mafft/dndpre
+END
